@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Penalty Game</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <style>
         body {
             margin: 0;
@@ -108,6 +109,55 @@
         .shoot-btn:hover {
             background-color: #27ae60;  /* темнее зеленый при наведении */
         }
+
+        .result-message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 72px;
+            font-weight: 900;
+            z-index: 1000;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s;
+            -webkit-text-stroke: 2px #000;
+            text-stroke: 2px #000;
+        }
+
+        .result-message.show {
+            opacity: 1;
+        }
+
+        .goal-text {
+            color: #2ecc71;
+            text-shadow: 
+                2px 2px 0 #000,
+                -2px -2px 0 #000,
+                2px -2px 0 #000,
+                -2px 2px 0 #000,
+                0 0 10px rgba(46, 204, 113, 0.5);
+        }
+
+        .miss-text {
+            color: #e74c3c;
+            text-shadow: 
+                2px 2px 0 #000,
+                -2px -2px 0 #000,
+                2px -2px 0 #000,
+                -2px 2px 0 #000,
+                0 0 10px rgba(231, 76, 60, 0.5);
+        }
+
+        /* Анимация для промаха */
+        @keyframes miss-flash {
+            0%, 100% { background-color: transparent; }
+            50% { background-color: rgba(231, 76, 60, 0.3); }
+        }
+
+        .miss-animation {
+            animation: miss-flash 0.5s;
+        }
     </style>
 </head>
 <body>
@@ -152,11 +202,67 @@
         <div class="controls">
             <button class="shoot-btn">Shoot</button>
         </div>
+
+        <div class="result-message"></div>
     </div>
 
     <script type="module">
         import WebApp from '@twa-dev/sdk'
         WebApp.ready();
+    </script>
+
+    <script>
+    let currentShot = 0;
+    const shootButton = document.querySelector('.shoot-btn');
+
+    shootButton.addEventListener('click', function() {
+        if (this.textContent === 'Restart') {
+            currentShot = 0;
+            this.textContent = 'Shoot';
+            document.querySelectorAll('.penalty-spot').forEach(spot => {
+                spot.classList.remove('scored', 'missed');
+            });
+            document.querySelector('.result-message').textContent = '';
+            return;
+        }
+
+        const isGoal = Math.random() < 0.8;
+        const spots = document.querySelectorAll('.team:first-child .penalty-spot');
+        const resultMessage = document.querySelector('.result-message');
+
+        if (isGoal) {
+            spots[currentShot].classList.add('scored');
+            resultMessage.textContent = 'GOAL!';
+            resultMessage.className = 'result-message goal-text';
+            
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 }
+            });
+        } else {
+            spots[currentShot].classList.add('missed');
+            resultMessage.textContent = 'MISS!';
+            resultMessage.className = 'result-message miss-text';
+            
+            document.body.classList.add('miss-animation');
+            setTimeout(() => {
+                document.body.classList.remove('miss-animation');
+            }, 500);
+        }
+
+        resultMessage.classList.add('show');
+        
+        setTimeout(() => {
+            resultMessage.classList.remove('show');
+        }, 1000);
+
+        currentShot++;
+        
+        if (currentShot === 5) {
+            this.textContent = 'Restart';
+        }
+    });
     </script>
 </body>
 </html>
