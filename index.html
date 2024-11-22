@@ -3,33 +3,161 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Penalty Shootout</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Penalty Game</title>
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #app {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .scoreboard {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .team {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .team h3 {
+            min-width: 80px;
+            margin: 0;
+        }
+
+        .penalties {
+            display: flex;
+            gap: 5px;
+        }
+
+        .penalty-spot {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #333;
+            border-radius: 50%;
+        }
+
+        .scored {
+            background-color: #2ecc71;
+        }
+
+        .missed {
+            background-color: #e74c3c;
+        }
+
+        .players {
+            display: flex;
+            gap: 30px;
+            margin-top: 40px;
+            justify-content: center;
+        }
+
+        .player-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .card-placeholder {
+            width: 120px;
+            height: 180px;  /* 1.5 от ширины */
+            border-radius: 8px;
+        }
+
+        .striker {
+            background-color: #e74c3c;  /* красный */
+        }
+
+        .keeper {
+            background-color: #3498db;  /* синий */
+        }
+
+        .player-name {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        .controls {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .shoot-btn {
+            padding: 12px 40px;
+            font-size: 18px;
+            background-color: #2ecc71;  /* зеленый */
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .shoot-btn:hover {
+            background-color: #27ae60;  /* темнее зеленый при наведении */
+        }
+    </style>
 </head>
 <body>
     <div id="app">
-        <div class="score-board">
-            <span>Счёт: <span id="score">0</span></span>
-            <span>Попытка: <span id="attempt">1</span>/5</span>
-        </div>
+        <h1>Penalty Game</h1>
         
-        <div class="game-field">
-            <div class="goal">
-                <div class="target" data-position="left"></div>
-                <div class="target" data-position="center"></div>
-                <div class="target" data-position="right"></div>
-                <div class="goalkeeper"></div>
+        <div class="scoreboard">
+            <div class="team">
+                <h3>Home</h3>
+                <div class="penalties">
+                    <div class="penalty-spot"></div>
+                    <div class="penalty-spot"></div>
+                    <div class="penalty-spot"></div>
+                    <div class="penalty-spot"></div>
+                    <div class="penalty-spot"></div>
+                </div>
             </div>
-            <div class="ball"></div>
+            
+            <div class="team">
+                <h3>Away</h3>
+                <div class="penalties">
+                    <div class="penalty-spot"></div>
+                    <div class="penalty-spot"></div>
+                    <div class="penalty-spot"></div>
+                    <div class="penalty-spot"></div>
+                    <div class="penalty-spot"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="players">
+            <div class="player-card">
+                <div class="card-placeholder striker"></div>
+                <div class="player-name">Messi</div>
+            </div>
+            <div class="player-card">
+                <div class="card-placeholder keeper"></div>
+                <div class="player-name">Neuer</div>
+            </div>
         </div>
 
         <div class="controls">
-            <button id="shoot-left">Левый угол</button>
-            <button id="shoot-center">Центр</button>
-            <button id="shoot-right">Правый угол</button>
+            <button class="shoot-btn">Shoot</button>
         </div>
     </div>
 
-    <script type="module" src="game.js"></script>
+    <script type="module">
+        import WebApp from '@twa-dev/sdk'
+        WebApp.ready();
+    </script>
 </body>
 </html>
+
