@@ -16,4 +16,9 @@
   "author": "",
   "license": "ISC",
   "description": ""
-}
+  },
+  {
+  "name": "my-telegram-mini-app",
+  "homepage": "https://androsovm.github.io/telegram-test-app",
+  // ... остальные настройки
+  }
