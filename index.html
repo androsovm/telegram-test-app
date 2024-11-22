@@ -3,28 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Telegram Mini App</title>
+    <title>Penalty Shootout</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div id="app">
-        <h1>Моё первое Telegram Mini App</h1>
-        <button id="mainButton">Нажми меня</button>
+        <div class="score-board">
+            <span>Счёт: <span id="score">0</span></span>
+            <span>Попытка: <span id="attempt">1</span>/5</span>
+        </div>
+        
+        <div class="game-field">
+            <div class="goal">
+                <div class="target" data-position="left"></div>
+                <div class="target" data-position="center"></div>
+                <div class="target" data-position="right"></div>
+                <div class="goalkeeper"></div>
+            </div>
+            <div class="ball"></div>
+        </div>
+
+        <div class="controls">
+            <button id="shoot-left">Левый угол</button>
+            <button id="shoot-center">Центр</button>
+            <button id="shoot-right">Правый угол</button>
+        </div>
     </div>
 
-    <script type="module">
-        import WebApp from '@twa-dev/sdk'
-
-        // Инициализация WebApp
-        WebApp.ready();
-
-        // Настройка основной кнопки
-        WebApp.MainButton.setText('ГЛАВНАЯ КНОПКА');
-        WebApp.MainButton.show();
-
-        // Обработчик нажатия на кнопку
-        WebApp.MainButton.onClick(() => {
-            WebApp.showAlert('Привет из Mini App!');
-        });
-    </script>
+    <script type="module" src="game.js"></script>
 </body>
 </html>

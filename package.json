@@ -3,6 +3,7 @@
     "@twa-dev/sdk": "^7.10.1"
   },
   "name": "telegram-app-test",
+  "homepage": "https://androsovm.github.io/telegram-test-app",
   "version": "1.0.0",
   "main": "index.js",
   "devDependencies": {
@@ -16,9 +17,4 @@
   "author": "",
   "license": "ISC",
   "description": ""
-  },
-  {
-  "name": "my-telegram-mini-app",
-  "homepage": "https://androsovm.github.io/telegram-test-app",
-  // ... остальные настройки
   }
