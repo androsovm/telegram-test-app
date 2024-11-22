@@ -1,0 +1,19 @@
+{
+  "dependencies": {
+    "@twa-dev/sdk": "^7.10.1"
+  },
+  "name": "telegram-app-test",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  },
+  "scripts": {
+    "start": "http-server -p 8080",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
